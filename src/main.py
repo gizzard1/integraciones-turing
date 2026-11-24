@@ -77,7 +77,7 @@ def enviar_correo(gmail, destinatario, asunto, cuerpo):
     print(f"Correo enviado a {destinatario}: {asunto}")
 
 
-def revisar_ventas(event, context):
+def main():
     creds = get_creds()
 
     sheets = build("sheets", "v4", credentials=creds)
@@ -176,3 +176,7 @@ def revisar_ventas(event, context):
         body={"values": [[total]]},
     ).execute()
     print(f"{len(pendientes)} venta(s) marcadas como notificadas.")
+
+
+if __name__ == "__main__":
+    main()
