@@ -23,7 +23,6 @@ APIs a habilitar:
 """
 
 import base64
-import json
 from email.message import EmailMessage
 import os.path
 from google.auth.transport.requests import Request
@@ -31,8 +30,6 @@ from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from pathlib import Path
-
-from google.cloud import secretmanager
 
 BASE_DIR = Path(__file__).resolve().parent
 CLIENT_SECRETS_FILE = BASE_DIR / "client_secret.json"
@@ -45,8 +42,6 @@ COLUMNA_PZS = 2
 COLUMNA_NOTIFICADA = 4
 CELDA_TOTAL_ANTERIOR = "Hoja 1!H2"
 DESTINATARIO = "admin@agenda-master.com.mx"
-PROJECT_ID = "integraciones-515716"
-SECRET_NAME = "gmail-sheets-token"
 
 
 SCOPES = [
@@ -56,20 +51,19 @@ SCOPES = [
 
 
 def get_creds():
-    client = secretmanager.SecretManagerServiceClient()
-    name = f"projects/{PROJECT_ID}/secrets/{SECRET_NAME}/versions/latest"
-    payload = client.access_secret_version(request={"name": name}).payload.data
-    info = json.loads(payload.decode("utf-8"))
-    creds = Credentials.from_authorized_user_info(info, SCOPES)
-    if creds.expired and creds.refresh_token:
-        creds.refresh(Request())
-        # Guardar el token refrescado para la próxima ejecución
-        client.add_secret_version(
-            request={
-                "parent": f"projects/{PROJECT_ID}/secrets/{SECRET_NAME}",
-                "payload": {"data": creds.to_json().encode("utf-8")},
-            }
-        )
+    creds = None
+    if TOKEN_FILE.exists():
+        creds = Credentials.from_authorized_user_file(str(TOKEN_FILE), SCOPES)
+    if not creds or not creds.valid:
+        if creds and creds.expired and creds.refresh_token:
+            creds.refresh(Request())
+        else:
+            flow = InstalledAppFlow.from_client_secrets_file(
+                str(CLIENT_SECRETS_FILE), SCOPES
+            )
+            creds = flow.run_local_server(port=0)
+        with open(TOKEN_FILE, "w") as token:
+            token.write(creds.to_json())
     return creds
 
 def enviar_correo(gmail, destinatario, asunto, cuerpo):
