@@ -18,28 +18,28 @@ del proveedor donde está registrado.
    de acuerdo con las necesidades actuales de la organización.
 2. Indica que ya tienes un dominio y escribe el dominio que vas a asociar.
 
-   ![Registro de un dominio propio para Workspace](src/docs/img/step4.png)
+   ![Registro de un dominio propio para Workspace](https://home.agenda-master.com.mx/storage/turing/dia2/step4.png)
 
 3. Verifica la propiedad del dominio. Google proporciona un registro TXT; crea
    ese registro en el panel DNS del proveedor y vuelve al asistente para
    confirmar la verificación. No copies el valor del registro en el README ni
    en capturas públicas.
 
-   ![Pasos para configurar y verificar el dominio](src/docs/img/step6.png)
+   ![Pasos para configurar y verificar el dominio](https://home.agenda-master.com.mx/storage/turing/dia2/step6.png)
 
 4. Completa la configuración inicial de Workspace y activa Gmail. Para recibir
    correo en Gmail, configura en DNS los registros MX que indique el asistente
    de Google para ese dominio. Los valores pueden variar; no reutilices valores
    de una captura antigua sin compararlos con las instrucciones actuales.
 
-   ![Finalización del asistente de Workspace](src/docs/img/step8.png)
+   ![Finalización del asistente de Workspace](https://home.agenda-master.com.mx/storage/turing/dia2/step8.png)
 
-   ![Ejemplo de configuración de registros MX](src/docs/img/step10.png)
+   ![Ejemplo de configuración de registros MX](https://home.agenda-master.com.mx/storage/turing/dia2/step10.png)
 
 5. Espera la propagación DNS y confirma que el asistente indique que el dominio
    y Gmail están activos.
 
-   ![Confirmación de dominio verificado y Gmail activo](src/docs/img/step11.png)
+   ![Confirmación de dominio verificado y Gmail activo](https://home.agenda-master.com.mx/storage/turing/dia2/step11.png)
 
 ### 2. Crear usuarios y configurar el acceso
 
@@ -63,7 +63,7 @@ Para las integraciones:
   los miembros necesarios. Un grupo no sustituye a la cuenta que autoriza la
   integración.
 
-  ![Ejemplo de permisos restringidos para un grupo](src/docs/img/step13.png)
+  ![Ejemplo de permisos restringidos para un grupo](https://home.agenda-master.com.mx/storage/turing/dia2/step13.png)
 
 Las capturas del listado de usuarios contienen direcciones reales; por eso esta
 guía describe su configuración sin volver a publicarlas.
@@ -86,8 +86,7 @@ requisito para autorizar el Apps Script final.
 
 El programa usa OAuth para Gmail y Sheets. El token y el JSON de cliente son
 credenciales: no los compartas ni los subas al repositorio. `src/.gitignore`
-excluye `client_secret.json`, `secrets.json` y `token.json`. Las capturas que
-muestran identificadores y secretos OAuth se omiten por seguridad.
+excluye `client_secret.json`, `secrets.json` y `token.json`. 
 
 ### 4. Alternativa automática: Cloud Scheduler
 
@@ -99,11 +98,11 @@ Cloud Run.
 Primero se configuró el despliegue de la función desde el repositorio y la rama
 principal mediante Cloud Build:
 
-![Configuración del despliegue de la función](src/docs/img/step28.png)
+![Configuración del despliegue de la función](https://home.agenda-master.com.mx/storage/turing/dia2/step28.png)
 
 Después se vinculó el repositorio de GitHub como origen del código:
 
-![Selección del repositorio para Cloud Build](src/docs/img/step29.png)
+![Selección del repositorio para Cloud Build](https://home.agenda-master.com.mx/storage/turing/dia2/step29.png)
 
 Esta alternativa puede consultarse en el commit 1213241 de [`src/main.py`](src/main.py).
 El programa consulta Sheets, calcula el total y usa Gmail para enviar un único
@@ -120,12 +119,12 @@ cálculo. El código de referencia está en
 
 Apps Script permite automatizar la hoja sin desplegar un servicio externo:
 
-![Entorno de Apps Script en Google Workspace](src/docs/img/step1.png)
+![Entorno de Apps Script en Google Workspace](https://home.agenda-master.com.mx/storage/turing/dia2/step1.png)
 
 La hoja contiene las ventas que se revisan y las columnas usadas para calcular
 el total:
 
-![Estructura de la hoja de ventas](src/docs/img/step24.png)
+![Estructura de la hoja de ventas](https://home.agenda-master.com.mx/storage/turing/dia2/step24.png)
 
 1. Leer las filas de ventas y calcular el total usando piezas y subtotal.
 2. Identificar las filas que aún no están marcadas como notificadas.
@@ -145,11 +144,11 @@ para enviar correo.
 
 Se abre el editor desde **Extensiones > Apps Script** en la hoja:
 
-![Acceso a Apps Script desde Sheets](src/docs/img/step31.png)
+![Acceso a Apps Script desde Sheets](https://home.agenda-master.com.mx/storage/turing/dia2/step31.png)
 
 En el editor de Apps Script se abre la sección **Activadores**:
 
-![Acceso a la sección Activadores](src/docs/img/step33.png)
+![Acceso a la sección Activadores](https://home.agenda-master.com.mx/storage/turing/dia2/step33.png)
 
 Desde ahí se crea el activador de edición:
 
@@ -160,7 +159,7 @@ Desde ahí se crea el activador de edición:
 Se comprobó que el correo resume el cambio del total y que las filas notificadas
 quedan marcadas en la hoja.
 
-![Hoja con ventas marcadas como notificadas](src/docs/img/step26.png)
+![Hoja con ventas marcadas como notificadas](https://home.agenda-master.com.mx/storage/turing/dia2/step26.png)
 
 ## Archivos principales
 
